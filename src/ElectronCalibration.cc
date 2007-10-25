@@ -110,7 +110,7 @@ void ElectronCalibration::beginJob(edm::EventSetup const& iSetup) {
   MapCor9 = new TH2F ("MapCor9", "Correlation  E25/Pcalo versus Eseed/Pout",100 ,0. ,5. ,100,0.,5. );
   MapCor10 = new TH2F ("MapCor10", "Correlation Eseed/Pout versus Pout/Pin",100 ,0. ,5. ,100,0.,5. );
   MapCor11 = new TH2F ("MapCor11", "Correlation Eseed/Pout versus E25/Pin",100 ,0. ,5. ,100,0.,5. );
-  MapCorCalib = new TH2F ("MapCorCalib", "Correlation Miscalibration versus Calibration constants", 100, 0., 3., 100, 0., 3.);
+  MapCorCalib = new TH2F ("MapCorCalib", "Correlation Miscalibration versus Calibration constants", 100, 0.5,1.5, 100, 0.5, 1.5);
 
   PinMinPout = new TH1F("PinMinPout","(Pin - Pout)/Pin",600,-2.0,2.0);
 
