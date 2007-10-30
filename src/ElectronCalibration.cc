@@ -287,7 +287,10 @@ if(calibAlgo_=="L3"){
    if( iter != OldCoeff.end() )Compare = iter->second;
 
    if((itmap->first).ieta()>mineta_ && (itmap->first).ieta()<maxeta_ && (itmap->first).iphi()>minphi_ && (itmap->first).iphi()<maxphi_){
-     Map3Dcalib->Fill((itmap->first).ieta(),(itmap->first).iphi(),newCalibs[icry]*Compare ) ;}
+     Map3Dcalib->Fill((itmap->first).ieta(),(itmap->first).iphi(),newCalibs[icry]*Compare ) ;
+     MisCalibs->Fill(Compare);
+
+}
    if((itmap->first).ieta()< mineta_+2){icry++; continue;}
    if((itmap->first).ieta()> maxeta_-2){icry++; continue;}
    if((itmap->first).iphi()< minphi_+2){icry++; continue;} 
@@ -485,6 +488,8 @@ void ElectronCalibration::analyze(const edm::Event& iEvent, const edm::EventSetu
       
       vector<EBDetId> Xtals5x5 = calibCluster.get5x5Id(maxHitId);
       
+      if(Xtals5x5.size()!=ClusterSize_*ClusterSize_)return;
+ 
       // fill cluster energy
       vector<float> energy;
       float energy3x3=0.;  
