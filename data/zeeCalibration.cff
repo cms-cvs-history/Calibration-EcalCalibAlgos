@@ -3,18 +3,26 @@
 
 	string rechitProducer = "recalibRechit"
 	string rechitCollection = "EcalRecHitsEB"
+
+	string erechitProducer = "recalibRechit"
+	string erechitCollection = "EcalRecHitsEE"
 	
 	string scProducer = "correctedHybridSuperClusters"
 	string scCollection = "recalibSC"
-	
+
+	string scIslandProducer = "electronRecalibSCAssociator"
+	string scIslandCollection = ""
+
 	untracked string mcProducer = "zeeFilter"
-	
-	string electronProducer = "electronFilter"
+
+	string electronProducer = "electronRecalibSCAssociator"
 	string electronCollection = ""
 	
 	untracked uint32 maxLoops = 10
-
-#	untracked string initialMiscalibrationBarrel = "barrel_misCalib_barchetta.xml" 
+	untracked uint32 electronSelection = 0
+	untracked bool wantEtaCorrection = true
+	untracked string initialMiscalibrationBarrel = "" 
+	untracked string initialMiscalibrationEndcap = "" 
 
 ###############################################################
 ###     Specific ZIterativeAlgorithm parameters   #############
@@ -24,3 +32,4 @@
 ###############################################################
 
     }
+
