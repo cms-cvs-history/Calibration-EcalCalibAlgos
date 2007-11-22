@@ -365,23 +365,13 @@ void PhiSymmetryCalibration::endJob()
     int ieta,iphi,sign,ix,iy,dummy;
     double etsum;
     std::ifstream etsum_barl_in("etsum_barl.dat", ios::in);
-    while (!etsum_barl_in.eof()) {
-      etsum_barl_in >> dummy;
-      etsum_barl_in >> ieta;
-      etsum_barl_in >> iphi;
-      etsum_barl_in >> sign;
-      etsum_barl_in >> etsum;
+    while ( etsum_barl_in >> dummy>> ieta>>iphi>> sign>> etsum){
       etsum_barl_[ieta][iphi][sign]+=etsum;
     }
     etsum_barl_in.close();
 
     std::ifstream etsum_endc_in("etsum_endc.dat", ios::in);
-    while (!etsum_endc_in.eof()) {
-      etsum_endc_in >> dummy;
-      etsum_endc_in >> ix;
-      etsum_endc_in >> iy;
-      etsum_endc_in >> sign;
-      etsum_endc_in >> etsum;
+    while (etsum_endc_in >> dummy>> ix>> iy>> sign>> etsum){
       etsum_endc_[ix][iy][sign]+=etsum;
     }
     etsum_endc_in.close();
