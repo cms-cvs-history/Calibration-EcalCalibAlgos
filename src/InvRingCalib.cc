@@ -215,7 +215,7 @@ edm::EDLooper::Status InvRingCalib::duringLoop (const edm::Event& iEvent,
   }
 
  //gets the electrons
- edm::Handle<reco::GsfElectronCollection> pElectrons;
+ edm::Handle<reco::PixelMatchGsfElectronCollection> pElectrons;
  try {
       iEvent.getByLabel(m_ElectronLabel,pElectrons);
      }
@@ -225,7 +225,7 @@ edm::EDLooper::Status InvRingCalib::duringLoop (const edm::Event& iEvent,
        return kContinue;
     }
  //loops over the electrons in the event
- const reco::GsfElectronCollection * electronCollection = pElectrons.product();
+ const reco::PixelMatchGsfElectronCollection * electronCollection = pElectrons.product();
  for (eleIterator eleIt = electronCollection->begin();
       eleIt != electronCollection->end();
       ++eleIt )
