@@ -10,9 +10,9 @@
  
     \brief element for the single ECAL block intercalibration  
 
-    $Date: 2007/12/23 16:14:29 $
-    $Revision: 1.3 $
-    $Id: VEcalCalibBlock.h,v 1.3 2007/12/23 16:14:29 govoni Exp $ 
+    $Date: 2008/01/23 11:04:54 $
+    $Revision: 1.1.2.1 $
+    $Id: VEcalCalibBlock.h,v 1.1.2.1 2008/01/23 11:04:54 govoni Exp $ 
     \author $Author: govoni $
 */
 class VEcalCalibBlock
@@ -37,7 +37,8 @@ class VEcalCalibBlock
     //! retrieve the coefficients
     float at (const unsigned int index) { return m_coefficients[index] ; }
     //! solve the chi2 linear system
-    virtual void solve (int usingBlockSolver, double min, double max) = 0 ;
+    virtual void solve (int usingBlockSolver, double min, double max, 
+                        bool save = false, std::string name = "") = 0 ;
 
   protected :  
 

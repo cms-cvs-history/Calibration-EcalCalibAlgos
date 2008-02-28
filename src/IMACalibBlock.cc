@@ -1,12 +1,13 @@
 /**
-    $Date: 2007/12/23 16:14:30 $
-    $Revision: 1.3 $
-    $Id: IMACalibBlock.cc,v 1.3 2007/12/23 16:14:30 govoni Exp $ 
+    $Date: 2008/01/23 11:04:55 $
+    $Revision: 1.1.2.1 $
+    $Id: IMACalibBlock.cc,v 1.1.2.1 2008/01/23 11:04:55 govoni Exp $ 
     \author $Author: govoni $
 */
 
 #include "Calibration/EcalCalibAlgos/interface/IMACalibBlock.h"
 #include "Calibration/EcalCalibAlgos/interface/BlockSolver.h"
+#include "Calibration/Tools/interface/matrixSaver.h"
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
 #include "TH1F.h"
 #include "TFile.h"
@@ -97,33 +98,40 @@ IMACalibBlock::complete ()
 
 
 void
-IMACalibBlock::solve (int usingBlockSolver, double min, double max)
+IMACalibBlock::solve (int usingBlockSolver, double min, double max, 
+                      bool save, std::string name)
 {
- complete () ;
-
- CLHEP::HepMatrix kaliMatrix (m_numberOfElements,m_numberOfElements) ;
- riempiMtr (m_kaliMatrix , kaliMatrix) ;
- CLHEP::HepVector kaliVector (m_numberOfElements) ;
- riempiVtr (m_kaliVector , kaliVector) ;
- //PG linear system solution
- CLHEP::HepVector result = CLHEP::solve (kaliMatrix,kaliVector) ;
- if (result.normsq () < min * kaliMatrix.num_row () ||
-     result.normsq () > max * kaliMatrix.num_row ()) 
-   {
-   if (usingBlockSolver)  
-     {
-        edm::LogWarning ("IML") << "using  blocSlover " << std::endl ;
-        BlockSolver() (kaliMatrix,kaliVector,result) ;
-     }
-   else 
-     {
-       edm::LogWarning ("IML") <<"coeff out of range " <<std::endl;
-       for (int i = 0 ; i < kaliVector.num_row () ; ++i)
-             result[i] = 1. ;
-     }
-   }
- fillMap(result);
- return ;
+  complete () ;
+ 
+  CLHEP::HepMatrix kaliMatrix (m_numberOfElements,m_numberOfElements) ;
+  riempiMtr (m_kaliMatrix , kaliMatrix) ;
+  CLHEP::HepVector kaliVector (m_numberOfElements) ;
+  riempiVtr (m_kaliVector , kaliVector) ;
+ 
+  //PG save matrix and vector on a plain file 
+  matrixSaver writer ;
+  writer.saveMatrix (name + "_mtr.txt", &kaliMatrix) ;
+  writer.saveMatrix (name + "_vtr.txt", &kaliVector) ;
+    
+  //PG linear system solution
+  CLHEP::HepVector result = CLHEP::solve (kaliMatrix,kaliVector) ;
+  if (result.normsq () < min * kaliMatrix.num_row () ||
+      result.normsq () > max * kaliMatrix.num_row ()) 
+    {
+    if (usingBlockSolver)  
+      {
+         edm::LogWarning ("IML") << "using  blocSlover " << std::endl ;
+         BlockSolver() (kaliMatrix,kaliVector,result) ;
+      }
+    else 
+      {
+        edm::LogWarning ("IML") <<"coeff out of range " <<std::endl;
+        for (int i = 0 ; i < kaliVector.num_row () ; ++i)
+              result[i] = 1. ;
+      }
+    }
+  fillMap (result) ;
+  return ;
 }
 
 

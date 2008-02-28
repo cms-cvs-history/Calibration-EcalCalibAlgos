@@ -18,9 +18,9 @@
  
     \brief element for the single ECAL block intercalibration  
 
-    $Date: 2007/12/23 16:14:29 $
-    $Revision: 1.3 $
-    $Id: EcalCalibBlock.h,v 1.3 2007/12/23 16:14:29 govoni Exp $ 
+    $Date: 2008/01/23 11:04:54 $
+    $Revision: 1.1.2.1 $
+    $Id: IMACalibBlock.h,v 1.1.2.1 2008/01/23 11:04:54 govoni Exp $ 
     \author $Author: govoni $
 */
 class IMACalibBlock : public VEcalCalibBlock
@@ -41,7 +41,8 @@ class IMACalibBlock : public VEcalCalibBlock
     //! reset the chi2 matrices
     void reset () ;
     //! solve the chi2 linear system
-    void solve (int usingBlockSolver, double min, double max) ;
+    void solve (int usingBlockSolver, double min, double max, 
+                bool save = false, std::string name = "") ;
   private :
     
     //! give the size of a chi2 matrix

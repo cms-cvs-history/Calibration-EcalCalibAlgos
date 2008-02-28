@@ -20,9 +20,9 @@
  
     \brief interface to the L3Univ class for testing  
 
-    $Date: 2007/12/23 16:14:29 $
-    $Revision: 1.3 $
-    $Id: L3CalibBlock.h,v 1.3 2007/12/23 16:14:29 govoni Exp $ 
+    $Date: 2008/01/23 11:04:54 $
+    $Revision: 1.1.2.1 $
+    $Id: L3CalibBlock.h,v 1.1.2.1 2008/01/23 11:04:54 govoni Exp $ 
     \author $Author: govoni $
 */
 class L3CalibBlock : public VEcalCalibBlock
@@ -46,7 +46,8 @@ class L3CalibBlock : public VEcalCalibBlock
     //! To retrieve the coefficients
     double at ( int);
     //! solve the chi2 linear system
-    void solve (int usingBlockSolver, double min, double max) ;
+    void solve (int usingBlockSolver, double min, double max, 
+                bool save = false, std::string name = "") ;
   
   private :  
 

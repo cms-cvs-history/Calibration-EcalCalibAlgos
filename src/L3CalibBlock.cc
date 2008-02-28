@@ -1,7 +1,7 @@
 /**
-    $Date: 2007/12/23 16:14:30 $
-    $Revision: 1.3 $
-    $Id: L3CalibBlock.cc,v 1.3 2007/12/23 16:14:30 govoni Exp $ 
+    $Date: 2008/01/23 11:04:55 $
+    $Revision: 1.1.2.1 $
+    $Id: L3CalibBlock.cc,v 1.1.2.1 2008/01/23 11:04:55 govoni Exp $ 
     \author $Author: govoni $
 */
 
@@ -64,7 +64,8 @@ L3CalibBlock::Fill (std::map<int,double>::const_iterator MapBegin,
 
 
 void
-L3CalibBlock::solve (int usingBlockSolver, double min, double max)
+L3CalibBlock::solve (int usingBlockSolver, double min, double max, 
+                     bool save, std::string name)
 {
   m_coefficients = m_L3AlgoUniv->getSolution () ;
   return ;
