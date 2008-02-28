@@ -2,8 +2,8 @@
   * \file EcalEleCalibLooper.h
   * \class EcalEleCalibLooper
   * \brief ECAL TB 2006 calibration with matrix inversion technique
-  * $Date: 2007/12/23 16:15:37 $
-  * $Revision: 1.2 $
+  * $Date: 2008/01/23 11:04:54 $
+  * $Revision: 1.1.2.1 $
   * \author 
   *
 */
@@ -175,23 +175,26 @@ class EcalEleCalibLooper : public edm::EDLooper {
     unsigned int m_loops ;
     //! To take the electrons
     edm::InputTag m_ElectronLabel ;
+    //! PG save or not the chi2 matrices and vectors
+    bool m_saveMatrices ;
+    //! PG tag name to be used to name the files of the matrices
+    std::string m_saveMtrTagName ; 
 
-
-  //DS numero delle regioni lungo il raggio (onion rings) (da fare divisione lungo phi)
-  inline int EEregionsNum () const ;
-  //DS numero delle regioni in EB
-  inline int EBregionsNum () const ;
-
-  std::vector<int> m_regions;
+    //DS numero delle regioni lungo il raggio (onion rings) (da fare divisione lungo phi)
+    inline int EEregionsNum () const ;
+    //DS numero delle regioni in EB
+    inline int EBregionsNum () const ;
   
-  std::vector<DetId> m_barrelCells;
-  std::vector<DetId> m_endcapCells;
-
-  std::map<int,int> m_xtalRegionId ;
-  std::map<int,int> m_xtalPositionInRegion ;
-
-  std::map <int,int> m_xtalNumOfHits;
-  //  std::map<int,double> m_miscalibMap;
+    std::vector<int> m_regions;
+    
+    std::vector<DetId> m_barrelCells;
+    std::vector<DetId> m_endcapCells;
+  
+    std::map<int,int> m_xtalRegionId ;
+    std::map<int,int> m_xtalPositionInRegion ;
+  
+    std::map <int,int> m_xtalNumOfHits;
+    //  std::map<int,double> m_miscalibMap;
 };
 #endif
 #endif

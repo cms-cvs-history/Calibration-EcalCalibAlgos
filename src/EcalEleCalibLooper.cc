@@ -1,6 +1,8 @@
 #include <memory>
 #include <cmath>
 #include <iostream>
+#include <string>
+#include <sstream>
 #include "FWCore/Framework/interface/Frameworkfwd.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
@@ -72,7 +74,9 @@ EcalEleCalibLooper::EcalEleCalibLooper (const edm::ParameterSet& iConfig) :
       //m_minAccept (iConfig.getParameter<double> ("minAccept")) ,
       //m_maxAccept (iConfig.getParameter<double> ("maxAccept")) ,
       m_loops (iConfig.getParameter<int> ("loops")),
-      m_ElectronLabel (iConfig.getParameter<edm::InputTag> ("electronLabel"))
+      m_ElectronLabel (iConfig.getParameter<edm::InputTag> ("electronLabel")),
+      m_saveMatrices (iConfig.getUntrackedParameter<bool> ("saveMatrices",false)),
+      m_saveMtrTagName (iConfig.getUntrackedParameter<std::string> ("saveMtrTagName","NOSAVE"))
   //Controls the parameters and their conversions
 {
    edm::LogInfo ("IML") << "[EcalEleCalibLooper][ctor] asserts" ;
@@ -302,11 +306,16 @@ EcalEleCalibLooper::duringLoop (const edm::Event& iEvent,
 edm::EDLooper::Status EcalEleCalibLooper::endOfLoop (const edm::EventSetup& dumb,unsigned int iCounter)
 {
  edm::LogInfo ("IML") << "[InvMatrixCalibLooper][endOfLoop] entering..." ;
- for (std::vector<VEcalCalibBlock *>::iterator calibBlock = m_EcalCalibBlocks.begin ();
-       calibBlock!=m_EcalCalibBlocks.end ();
+ for (std::vector<VEcalCalibBlock *>::iterator calibBlock = m_EcalCalibBlocks.begin () ;
+       calibBlock!=m_EcalCalibBlocks.end () ;
        ++calibBlock) 
-   (*calibBlock)->solve (m_usingBlockSolver, m_minCoeff,m_maxCoeff);
-
+   {
+     std::stringstream name ;
+     name << m_saveMtrTagName << "_elem_" << calibBlock - m_EcalCalibBlocks.begin () ;
+     (*calibBlock)->solve (m_usingBlockSolver, m_minCoeff,m_maxCoeff,
+                           m_saveMatrices,name.str ());
+   }
+   
   TH1F * EBcoeffEnd = new TH1F ("EBRegion","EBRegion",100,0.5,2.1) ;
   TH2F * EBcoeffMap = new TH2F ("EBcoeff","EBcoeff",171,-85,85,360,1,361);
   TH1F * EEPcoeffEnd = new TH1F ("EEPRegion", "EEPRegion",100,0.5,2.1);
