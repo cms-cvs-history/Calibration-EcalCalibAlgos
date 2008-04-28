@@ -15,6 +15,8 @@
 
 	untracked string mcProducer = "zeeFilter"
 
+        string calibMode = "RING"
+
 	string electronProducer = "electronRecalibSCAssociator"
 	string electronCollection = ""
 	
@@ -23,6 +25,7 @@
 	untracked bool wantEtaCorrection = true
 	untracked string initialMiscalibrationBarrel = "" 
 	untracked string initialMiscalibrationEndcap = "" 
+        InputTag HLTriggerResults = TriggerResults::HLT
 
 ###############################################################
 ###     Specific ZIterativeAlgorithm parameters   #############
