@@ -6,6 +6,7 @@
 <use name=DataFormats/EgammaReco>
 <use name=DataFormats/TrackReco>
 <use name=DataFormats/EgammaCandidates>
+<use name=Geometry/CaloEventSetup>
 <use name=CondFormats/EcalObjects>
 <use name=CondFormats/DataRecord>
 <use name=RecoLocalCalo/EcalRecAlgos>
@@ -19,8 +20,7 @@
 <use name=xerces-c>
 <use name=Calibration/Tools>
 <use name=CalibCalorimetry/CaloMiscalibTools>
-<use name=CondTools/Ecal>
-<use name=SimDataFormats/GeneratorProducts>
+<use name=SimDataFormats/HepMCProduct>
 <flags EDM_PLUGIN=1>
 <export>
    <lib name=CalibrationEcalCalibAlgos>
@@ -43,9 +43,8 @@
    <use name=DataFormats/EgammaReco>
    <use name=DataFormats/TrackReco>
    <use name=DataFormats/EgammaCandidates>
-   <use name=CondTools/Ecal>
    <use name=root>
    <use name=xerces-c> 
    <use name=CalibCalorimetry/CaloMiscalibTools>
-   <use name=SimDataFormats/GeneratorProducts>
+   <use name=SimDataFormats/HepMCProduct>
 </export>
