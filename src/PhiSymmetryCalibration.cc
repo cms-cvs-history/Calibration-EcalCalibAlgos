@@ -5,6 +5,7 @@
 
 // Framework
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
+#include "FWCore/ParameterSet/interface/ParameterSet.h"
 
 // Conditions database
 #include "CondTools/Ecal/interface/EcalIntercalibConstantsXMLTranslator.h"
